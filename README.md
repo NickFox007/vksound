@@ -1,6 +1,8 @@
 VKSound [Forked from https://github.com/tagunzet/vksound]
 
-All service's settings contained in setting.py file
+All service's settings contained in setting.py file:
+
+
 
 app_username = '792727000000'			        	 		# Page login
 
