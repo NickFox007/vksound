@@ -40,9 +40,14 @@ vk_session = vk_api.VkApi(
              #auth_handler=auth_handler
         )
 
-vk_session.auth()
+def vkAuth():
 
-vk2 = vk_session.get_api()
+    global vk_session
+    vk_session.auth()
+    global vk2
+    vk2 = vk_session.get_api()
+
+
 
 # Спарсить ID пользователя в автоматическом режиме
 
@@ -193,6 +198,7 @@ def login():
 
         #users_id.append(one_comm)
         
+        vkAuth()
         vk = vk_audio.VkAudio(vk=vk_session)
         
 		
@@ -202,7 +208,8 @@ def login():
             
             get_dict = audios_dict.get(owner,None)
             if get_dict == None:
-            
+			
+                
                 data = vk.load(owner)  # получаем наши аудио
 
                 #print(data)
@@ -233,24 +240,30 @@ def login():
 
         except:
             pass
-            session.pop('username', None)
+            #session.pop('username', None)
             return render_template("login.html")
         one_comm = owner
         two_comm = str(len(bigmass))
+        print(owner)
         return render_template("home.html",one_comm=one_comm,two_comm=two_comm,mass=bigmass)
 
     else:
 
 
 
-
+        print(owner)
         return render_template("home.html",mass=bigmass)
 
-
 @app.route('/exit/',methods=['GET', 'POST'])
+@app.route('/exit',methods=['GET', 'POST'])
 def exiting():
-    session.pop('username', None)
 
+    owner = session.pop('username', None)
+    audios_dict.pop(owner, None)
+    #print(audios_dict[owner])
+    
+
+	
     return render_template("login.html")  
 
 
